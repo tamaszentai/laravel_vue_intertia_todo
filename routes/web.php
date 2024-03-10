@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+use App\Http\Controllers\TodoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +14,4 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('app');
-});
+Route::get('/', [TodoController::class, 'index'])->name('index');
