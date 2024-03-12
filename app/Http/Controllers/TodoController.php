@@ -12,7 +12,7 @@ class TodoController extends Controller
     public function index()
     {
         return Inertia::render("Index", [
-            'todos' => Todo::all()
+            'todos' => Todo::all(),
         ]);
     }
 
@@ -23,6 +23,10 @@ class TodoController extends Controller
 
     public function store(Request $request)
     {
+        Todo::create($request->validate([
+            'name' => 'required',
+            'isCompleted' => 'required',
+        ]));
     }
 
     public function show(string $id)
@@ -33,8 +37,13 @@ class TodoController extends Controller
     {
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
+        $todo = Todo::find($request->id);
+        $todo->isCompleted = $request->isCompleted;
+        $todo->save();
+
+        return $todo;
     }
 
     public function destroy(string $id)
