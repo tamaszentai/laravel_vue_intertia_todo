@@ -46,7 +46,12 @@ class TodoController extends Controller
         return $todo;
     }
 
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
+        $id = $request->id;
+        $todo = Todo::find($id);
+        // return $todo;
+        $todo->delete();
+        return response(status: 202);
     }
 }
